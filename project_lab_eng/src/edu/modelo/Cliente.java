@@ -2,7 +2,8 @@ package edu.modelo;
 
 import java.util.Date;
 
-public abstract class Parceiro {
+
+public abstract class Cliente {
 	
 	private String cnpj;
 	private String contato;
