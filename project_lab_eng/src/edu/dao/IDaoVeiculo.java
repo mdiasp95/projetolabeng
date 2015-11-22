@@ -2,7 +2,8 @@ package edu.dao;
 
 import java.util.List;
 
-import model.Veiculo;
+import edu.modelo.Veiculo;
+
 
 public interface IDaoVeiculo {
 

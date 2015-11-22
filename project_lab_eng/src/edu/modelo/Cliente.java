@@ -3,7 +3,7 @@ package edu.modelo;
 import java.util.Date;
 
 
-public abstract class Cliente {
+public class Cliente {
 	
 	private String cnpj;
 	private String contato;
@@ -19,6 +19,8 @@ public abstract class Cliente {
 	private String fone2;
 	private String status;
 	private Date dtCadastro;
+	private Remetente remetente = null;
+	private Destinatario destinatario = null;
 	
 	public String getCnpj() {
 		return cnpj;
@@ -104,6 +106,18 @@ public abstract class Cliente {
 	public void setDtCadastro(Date dtCadastro) {
 		this.dtCadastro = dtCadastro;
 	}
-
+	public Remetente getRemetente() {
+		return remetente;
+	}
+	public void setRemetente(Remetente remetente) {
+		this.remetente = remetente;
+	}
+	public Destinatario getDestinatario() {
+		return destinatario;
+	}
+	public void setDestinatario(Destinatario destinatario) {
+		this.destinatario = destinatario;
+	}
+	
 	
 }

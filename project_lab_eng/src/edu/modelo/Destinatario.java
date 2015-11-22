@@ -1,6 +1,6 @@
 package edu.modelo;
 
-public class Destinatario extends Cliente {
+public class Destinatario{
 	String cnpj;
 	String contato;
 	String servProd;

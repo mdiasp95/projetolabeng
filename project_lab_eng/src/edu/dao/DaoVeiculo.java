@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.dao.DatabaseConnection;
+import edu.modelo.Veiculo;
 import servicos.EnumStatusVeiculo;
-import model.Veiculo;
+
 
 public class DaoVeiculo implements IDaoVeiculo {
 

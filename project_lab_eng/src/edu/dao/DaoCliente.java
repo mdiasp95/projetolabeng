@@ -9,19 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.dao.DatabaseConnection;
-import model.Cliente;
+import edu.modelo.Cliente;
 
-public class DaoCliente implements IDaoCliente {
 
-	@Override
+public class DaoCliente implements IDaoCliente{
+
 	public void adicionar(Cliente f) {
 		try {
 			Connection con = DatabaseConnection.getConnection();
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("INSERT INTO tb_cliente(nome, cep, rua, numero, complemento, bairro, cidade, uf, ");
-			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato, observacao ) ");
-			sb.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato ) ");
+			sb.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
 			st.setString(1, f.getNome());
@@ -38,23 +38,23 @@ public class DaoCliente implements IDaoCliente {
 			st.setDate(12, dataBanco(new Date()));
 			st.setString(13, f.getCnpj());
 			st.setString(14, f.getContato());
-			st.setString(15, f.getObservacao());
 
 			st.executeUpdate();
 			con.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override
 	public void alterar(Cliente f) {
 		try {
 			Connection con = DatabaseConnection.getConnection();
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("UPDATE tb_cliente SET nome = ?, cep = ?, rua = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, ");
-			sb.append("fone1 = ?, fone2 = ?, status = ?, contato = ?, observacao = ? ");
+			sb.append("fone1 = ?, fone2 = ?, status = ?, contato = ?");
 			sb.append("WHERE  cnpj_cliente = ?");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
@@ -70,17 +70,17 @@ public class DaoCliente implements IDaoCliente {
 			st.setString(10, f.getFone2());
 			st.setString(11, f.getStatus());
 			st.setString(12, f.getContato());
-			st.setString(13, f.getObservacao());
 			st.setString(14, f.getCnpj());
 			st.executeUpdate();
 			con.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException e){
+			e.printStackTrace();
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	@Override
 	public void remover(Cliente f) {
 		try {
 			Connection con = DatabaseConnection.getConnection();
@@ -89,13 +89,14 @@ public class DaoCliente implements IDaoCliente {
 			st.setString(1, f.getCnpj());
 			st.executeUpdate();
 			con.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	@Override
 	public List<Cliente> listar() {
 
 		List<Cliente> lista = new ArrayList<Cliente>();
@@ -104,13 +105,14 @@ public class DaoCliente implements IDaoCliente {
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("SELECT nome, cep, rua, numero, complemento, bairro, cidade, uf, ");
-			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato, observacao ");
+			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato");
 			sb.append("FROM tb_cliente");
 			PreparedStatement st = con.prepareStatement(sb.toString());
 
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				Cliente f = new Cliente(rs.getString("cnpj_cliente"));
+				Cliente f = new Cliente();
+				f.setCnpj(rs.getString("cnpj_cliente"));
 				f.setNome(rs.getString("nome"));
 				f.setCep(rs.getString("cep"));
 				f.setRua(rs.getString("rua"));
@@ -124,18 +126,18 @@ public class DaoCliente implements IDaoCliente {
 				f.setStatus(rs.getString("status"));
 				f.setDtCadastro(rs.getDate("dt_cadastro"));
 				f.setContato(rs.getString("contato"));
-				f.setObservacao(rs.getString("observacao"));
 
 				lista.add(f);
 			}
 			con.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return lista;
 	}
 
-	@Override
 	public List<Cliente> listarPorCnpj(String t) {
 		List<Cliente> lista = new ArrayList<Cliente>();
 		try {
@@ -143,13 +145,14 @@ public class DaoCliente implements IDaoCliente {
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("SELECT nome, cep, rua, numero, complemento, bairro, cidade, uf, ");
-			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato, observacao ");
+			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato ");
 			sb.append("FROM tb_cliente WHERE cnpj_cliente = ?");
 			PreparedStatement st = con.prepareStatement(sb.toString());
 			st.setString(1, t);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				Cliente f = new Cliente(rs.getString("cnpj_cliente"));
+				Cliente f = new Cliente();
+				f.setCnpj(rs.getString("cnpj_cliente"));
 				f.setNome(rs.getString("nome"));
 				f.setCep(rs.getString("cep"));
 				f.setRua(rs.getString("rua"));
@@ -163,18 +166,18 @@ public class DaoCliente implements IDaoCliente {
 				f.setStatus(rs.getString("status"));
 				f.setDtCadastro(rs.getDate("dt_cadastro"));
 				f.setContato(rs.getString("contato"));
-				f.setObservacao(rs.getString("observacao"));
-
 				lista.add(f);
 			}
 			con.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return lista;
 	}
 
-	@Override
+	
 	public List<Cliente> listarPorRazao(String t) {
 		List<Cliente> lista = new ArrayList<Cliente>();
 		try {
@@ -182,13 +185,14 @@ public class DaoCliente implements IDaoCliente {
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("SELECT nome, cep, rua, numero, complemento, bairro, cidade, uf, ");
-			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato, observacao ");
+			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato ");
 			sb.append("FROM tb_cliente WHERE nome like ?");
 			PreparedStatement st = con.prepareStatement(sb.toString());
 			st.setString(1, "%" + t + "%");
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				Cliente f = new Cliente(rs.getString("cnpj_cliente"));
+				Cliente f = new Cliente();
+				f.setCnpj(rs.getString("cnpj_cliente"));
 				f.setNome(rs.getString("nome"));
 				f.setCep(rs.getString("cep"));
 				f.setRua(rs.getString("rua"));
@@ -202,12 +206,13 @@ public class DaoCliente implements IDaoCliente {
 				f.setStatus(rs.getString("status"));
 				f.setDtCadastro(rs.getDate("dt_cadastro"));
 				f.setContato(rs.getString("contato"));
-				f.setObservacao(rs.getString("observacao"));
 
 				lista.add(f);
 			}
 			con.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return lista;

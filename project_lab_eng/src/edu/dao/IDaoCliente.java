@@ -2,7 +2,8 @@ package edu.dao;
 
 import java.util.List;
 
-import model.Cliente;
+import edu.modelo.Cliente;
+
 
 public interface IDaoCliente {
 	public void adicionar(Cliente f);
@@ -12,7 +13,7 @@ public interface IDaoCliente {
 	public void remover(Cliente f);
 
 	public List<Cliente> listarPorCnpj(String t);
-
+	
 	public List<Cliente> listarPorRazao(String t);
 
 	public List<Cliente> listar();
