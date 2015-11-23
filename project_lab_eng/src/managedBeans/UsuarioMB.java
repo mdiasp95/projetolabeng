@@ -1,6 +1,5 @@
 package managedBeans;
 
-
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -9,19 +8,21 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import edu.dao.DAOException;
-
+import edu.dao.DaoUsuario;
+import edu.dao.IDaoUsuario;
+import edu.modelo.Usuario;
 
 @ManagedBean
 @SessionScoped
-public class UserMB {
-	
+public class UsuarioMB {
+
 	private Usuario usuario;
 	private boolean logado = false;
-	private DAOImpl<Usuario> daoUsuario;
-	
-	public UserMB() { 
+	private IDaoUsuario daoUsuario;
+
+	public UsuarioMB() {
 		usuario = new Usuario();
-		daoUsuario = new DAOImpl<Usuario>(Usuario.class, "userid");
+		daoUsuario = new DaoUsuario();
 	}
 
 	public Usuario getUsuario() {
@@ -31,32 +32,22 @@ public class UserMB {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
 	public String login() { 
 		String msg = "";
-		try {
-			List<Usuario> lista = daoUsuario.pesquisar( usuario.getUserid() );
-			if (lista != null && lista.size() > 0) { 
-				Usuario u = lista.get(0);
+		Usuario u = daoUsuario.Pesquisar(usuario.getUserid());
 				if (u.getUserid().equals( usuario.getUserid() ) &&
-						u.getPassword().equals( usuario.getPassword() ) ) {
+						u.getSenha().equals(usuario.getSenha())){
 					setLogado(true);
-					return "animais.xhtml";
+					return "index.xhtml";
 				} else { 
 					setLogado(false);
 					msg = "Usuario ou senha inválidos";
 				}
-			} else { 
-				setLogado(false);
-				msg = "Usuario ou senha inválidos";
-			}
-		} catch (DAOException e) {
-			msg = "Erro no acesso ao database";
-			e.printStackTrace();
-		}
-		FacesContext.getCurrentInstance().addMessage(null, 
-				new FacesMessage(msg) );
-		return "";
+
+		msg = "Erro no acesso ao database";
+	 FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(msg));return"";
+
 	}
 
 	public boolean isLogado() {

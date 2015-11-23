@@ -13,7 +13,7 @@ import edu.dao.DaoEntrega;
 import edu.modelo.Entrega;
 
 
-@ManagedBean (name = "clienteMB")
+@ManagedBean (name = "entregaMB")
 @SessionScoped
 public class EntregaMB implements Serializable{
 
