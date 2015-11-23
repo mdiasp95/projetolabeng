@@ -12,6 +12,10 @@ public class Recebimento {
 	String status;
 	Destinatario destinatario;
 	Remetente remetente;
+	
+	public Recebimento(){
+		super();
+	}
 	public Date getDataEntrada() {
 		return dataEntrada;
 	}

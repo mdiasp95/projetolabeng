@@ -15,7 +15,7 @@ public interface IDaoVeiculo {
 
 	public List<Veiculo> listarPorPlaca(String t);
 
-	public List<Veiculo> listarPorStatus(String t);
+//	public List<Veiculo> listarPorStatus(String t);
 	
 	public List<Veiculo> listar();
 
