@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Veiculos</title>
+	<link href="estilo/estilo.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+	<div id="geral">
+		<div id="topo">
+			<div id="topo_imagem"></div>
+			<div id="topo_texto">
+				<h2>Gerenciador de Frota</h2>
+			</div>
+		</div>
+
+		<div id="barraMenu">
+			<ul>
+				<li><a href="index.xhtml">Principal</a></li>
+				<li><a href="veiculo.xhtml">Veículo</a></li>
+				<li><a href="fornecedor.xhtml">Fornecedor</a></li>
+				<li><a href="pecas.xhtml">Peça</a></li>
+				<li><a href="ordemDeServico.xhtml">Ordem de Serviço</a></li>
+			</ul>
+		</div>
+		<div id="conteudo">
+			<h3>Veículos</h3>
+			<h:messages />
+			<!-- ALTERACOES SOMENTE DAQUI ABAIXO -->
+			<h:form>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Placa:" />
+					<h:inputText id="placa" value="#{veiculoMB.veicAtual.placa}">
+						<f:validateLength minimum="7" maximum="7" />
+					</h:inputText>
+					<h:commandButton name="buscar" value=">>"
+						action="#{veiculoMB.buscarPorPlaca}" />
+
+					<h:outputLabel value="Marca:" />
+					<h:inputText id="marca" value="#{veiculoMB.veicAtual.marca}" />
+					<!-- sem nada -->
+
+					<h:outputLabel value="Modelo:" />
+					<h:inputText id="modelo" value="#{veiculoMB.veicAtual.modelo}" />
+					<!-- sem nada -->
+
+					<h:outputLabel value="Ano Fab.:" />
+					<h:inputText id="anoFab"
+						value="#{veiculoMB.veicAtual.anoFabricacao}" />
+					<!-- sem nada -->
+
+					<h:outputLabel value="Ano Mod.:" />
+					<h:inputText id="anoMod" value="#{veiculoMB.veicAtual.anoModelo}" />
+					<!-- sem nada -->
+
+					<h:outputLabel value="Status:" />
+					<h:inputText value="#{veiculoMB.veicAtual.status}" disabled="true" />
+					<!-- sem nada -->
+
+					<h:outputLabel />
+					<h:panelGroup>						
+						<h:commandButton action="#{veiculoMB.adicionar}" value="Adicionar"  />
+						<h:commandButton action="#{veiculoMB.atualizar}" value="Atualizar" />
+					</h:panelGroup>
+
+				</h:panelGrid>
+			</h:form>
+			<!-- ALTERACOES SOMENTE DAQUI ACIMA -->
+		</div>
+		<div style="clear: both"></div>
+		<div id="rodape">Trabalho de Laboratório de Banco de Dados</div>
+	</div>
+</h:body>
+</html>
+
+
