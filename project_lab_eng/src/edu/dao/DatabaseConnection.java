@@ -14,7 +14,7 @@ public class DatabaseConnection {
 			Class.forName("com.mysql.jdbc.Driver");
 		}
 		con = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/bd_transp", "root", "vertrigo");
+				"jdbc:mysql://localhost:3306/bd_transp", "root", "aluno");
 		return con;
 	}
 
