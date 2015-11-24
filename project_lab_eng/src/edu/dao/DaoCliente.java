@@ -54,7 +54,7 @@ public class DaoCliente implements IDaoCliente{
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("UPDATE tb_cliente SET nome = ?, cep = ?, rua = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, ");
-			sb.append("fone1 = ?, fone2 = ?, status = ?, contato = ?");
+			sb.append("fone1 = ?, fone2 = ?, status = ?, contato = ? ");
 			sb.append("WHERE  cnpj_cliente = ?");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
@@ -70,7 +70,7 @@ public class DaoCliente implements IDaoCliente{
 			st.setString(10, f.getFone2());
 			st.setString(11, f.getStatus());
 			st.setString(12, f.getContato());
-			st.setString(14, f.getCnpj());
+			st.setString(13, f.getCnpj());
 			st.executeUpdate();
 			con.close();
 		} catch (ClassNotFoundException e){
@@ -105,7 +105,7 @@ public class DaoCliente implements IDaoCliente{
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("SELECT nome, cep, rua, numero, complemento, bairro, cidade, uf, ");
-			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato");
+			sb.append("fone1, fone2, status, dt_cadastro, cnpj_cliente, contato ");
 			sb.append("FROM tb_cliente");
 			PreparedStatement st = con.prepareStatement(sb.toString());
 

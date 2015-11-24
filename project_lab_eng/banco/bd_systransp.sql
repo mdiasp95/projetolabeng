@@ -1,6 +1,15 @@
+create database bd_transp;
+use bd_transp;
+
+create table tb_usuario (
+userid varchar(20) unique not null,
+senha varchar(20) not null
+);
 
 CREATE TABLE tb_cliente
 (
+	cnpj_cliente         VARCHAR(14) NOT NULL,
+	contato              VARCHAR(20) NULL,
 	nome                 VARCHAR(40) NOT NULL,
 	cep                  INTEGER NULL,
 	rua                  VARCHAR(40) NULL,
@@ -13,15 +22,14 @@ CREATE TABLE tb_cliente
 	fone2                INTEGER NULL,
 	status               VARCHAR(20) NULL,
 	dt_cadastro          DATETIME NULL,
-	cnpj_cliente         VARCHAR(14) NOT NULL,
-	contato              VARCHAR(20) NULL,
 	observacao           TEXT NULL
-);
+	
+	);
 
 ALTER TABLE tb_cliente
 ADD PRIMARY KEY (cnpj_cliente);
 
-CREATE TABLE tb_despesa
+/*CREATE TABLE tb_despesa
 (
 	nf_numero            INTEGER NOT NULL,
 	servico              VARCHAR(20) NULL,
@@ -34,6 +42,16 @@ CREATE TABLE tb_despesa
 
 ALTER TABLE tb_despesa
 ADD PRIMARY KEY (nf_numero,cnpj_fornecedor);
+*/
+
+CREATE TABLE tb_destinatario
+(
+	cnpj_cliente         VARCHAR(20) NULL,
+	contato				varchar(50) null,
+    servprod			varchar(20) null,
+    observacao           VARCHAR(200) NULL
+	
+);
 
 CREATE TABLE tb_entrega
 (

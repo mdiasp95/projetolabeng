@@ -54,7 +54,6 @@ public class DaoUsuario implements IDaoUsuario {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("OK");
 	}
 
 }
