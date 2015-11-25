@@ -24,7 +24,7 @@ public class MotoristaMB implements Serializable{
 
 	private Motorista motorista;
 	private DaoMotorista daoUsuario;
-	private List<Motorista> lista = new ArrayList();
+	private List<Motorista> lista = new ArrayList<Motorista>();
 	
 	public MotoristaMB() { 
 		motorista = new Motorista();

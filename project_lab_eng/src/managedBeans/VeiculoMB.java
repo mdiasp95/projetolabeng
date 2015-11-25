@@ -9,9 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import edu.dao.DaoCliente;
+
 import edu.dao.DaoVeiculo;
-import edu.modelo.Cliente;
 import edu.modelo.Veiculo;
 
 
@@ -25,9 +24,33 @@ public class VeiculoMB  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Veiculo veicAtual;
 	private DaoVeiculo daoVeiculo;
-	private List<Veiculo> lista = new ArrayList();
+	private List<Veiculo> lista = new ArrayList<Veiculo>();
 	
 	
+	public Veiculo getVeicAtual() {
+		return veicAtual;
+	}
+
+	public void setVeicAtual(Veiculo veicAtual) {
+		this.veicAtual = veicAtual;
+	}
+
+	public DaoVeiculo getDaoVeiculo() {
+		return daoVeiculo;
+	}
+
+	public void setDaoVeiculo(DaoVeiculo daoVeiculo) {
+		this.daoVeiculo = daoVeiculo;
+	}
+
+	public List<Veiculo> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<Veiculo> lista) {
+		this.lista = lista;
+	}
+
 	public VeiculoMB() { 
 		veicAtual = new Veiculo();
 		daoVeiculo = new DaoVeiculo();

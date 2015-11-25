@@ -12,7 +12,7 @@ import edu.dao.DaoUsuario;
 import edu.dao.IDaoUsuario;
 import edu.modelo.Usuario;
 
-@ManagedBean
+@ManagedBean (name = "usuarioMB")
 @SessionScoped
 public class UsuarioMB {
 

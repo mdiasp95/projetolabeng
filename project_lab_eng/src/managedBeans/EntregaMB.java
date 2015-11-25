@@ -24,8 +24,32 @@ public class EntregaMB implements Serializable{
 
 	private Entrega entrega;
 	private DaoEntrega daoEntrega;
-	private List<Entrega> lista = new ArrayList();
+	private List<Entrega> lista = new ArrayList<Entrega>();
 	
+	public Entrega getEntrega() {
+		return entrega;
+	}
+
+	public void setEntrega(Entrega entrega) {
+		this.entrega = entrega;
+	}
+
+	public DaoEntrega getDaoEntrega() {
+		return daoEntrega;
+	}
+
+	public void setDaoEntrega(DaoEntrega daoEntrega) {
+		this.daoEntrega = daoEntrega;
+	}
+
+	public List<Entrega> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<Entrega> lista) {
+		this.lista = lista;
+	}
+
 	public EntregaMB() { 
 		entrega = new Entrega();
 		daoEntrega = new DaoEntrega();

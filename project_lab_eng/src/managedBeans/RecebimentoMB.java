@@ -10,10 +10,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import edu.dao.DaoRecebimento;
-import edu.modelo.Entrega;
 import edu.modelo.Recebimento;
 
-@ManagedBean (name = "entregaMB")
+@ManagedBean (name = "recebimentoMB")
 @SessionScoped
 public class RecebimentoMB implements Serializable{
 
@@ -24,9 +23,27 @@ public class RecebimentoMB implements Serializable{
 
 	private Recebimento recebimento;
 	private DaoRecebimento daoRecebimento;
-	private List<Recebimento> lista = new ArrayList();
+	private List<Recebimento> lista = new ArrayList<Recebimento>();
 	
 
+	public Recebimento getRecebimento() {
+		return recebimento;
+	}
+	public void setRecebimento(Recebimento recebimento) {
+		this.recebimento = recebimento;
+	}
+	public DaoRecebimento getDaoRecebimento() {
+		return daoRecebimento;
+	}
+	public void setDaoRecebimento(DaoRecebimento daoRecebimento) {
+		this.daoRecebimento = daoRecebimento;
+	}
+	public List<Recebimento> getLista() {
+		return lista;
+	}
+	public void setLista(List<Recebimento> lista) {
+		this.lista = lista;
+	}
 	public RecebimentoMB(){
 		recebimento = new Recebimento();
 		daoRecebimento = new DaoRecebimento();
@@ -40,6 +57,18 @@ public class RecebimentoMB implements Serializable{
 			FacesContext fc = FacesContext.getCurrentInstance();
 			fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
 			return "recebimento";
+		}
+		
+		public String buscarPorNota(){
+			String msg = "Nenhuma nota encontrada";
+			if(daoRecebimento.buscarRecebimento(recebimento.getNotaFiscal())!=null){
+				recebimento = daoRecebimento.buscarRecebimento(recebimento.getNotaFiscal());
+				msg = ""; 
+			}
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
+			return "recebimento";
+			
 		}
 		
 		public String pesquisar() {

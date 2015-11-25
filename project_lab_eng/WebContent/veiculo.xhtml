@@ -25,7 +25,7 @@
 				<li><a href="motorista.xhtml">Motorista</a></li>
 				<li><a href="recebimento.xhtml">Recebimento</a></li>
 				<li><a href="veiculo.xhtml">Veículo</a></li>
-				<li><a href="usuario.xhtml">Usuário</a></li>			
+				<li><a href="usuario.xhtml">Usuário</a></li>
 			</ul>
 		</div>
 		<div id="conteudo">
@@ -40,6 +40,10 @@
 					</h:inputText>
 					<h:commandButton name="buscar" value=">>"
 						action="#{veiculoMB.buscarPorPlaca}" />
+
+					<h:outputLabel value="Chassi:" />
+					<h:inputText id="marca" value="#{veiculoMB.veicAtual.chassi}" />
+					<!-- sem nada -->
 
 					<h:outputLabel value="Marca:" />
 					<h:inputText id="marca" value="#{veiculoMB.veicAtual.marca}" />
@@ -57,23 +61,25 @@
 					<h:outputLabel value="Ano Mod.:" />
 					<h:inputText id="anoMod" value="#{veiculoMB.veicAtual.anoModelo}" />
 					<!-- sem nada -->
-					
+
 					<h:outputLabel value="Capac. carga:" />
-					<h:inputText id="capacCarga" value="#{veiculoMB.veicAtual.capacidadeCarga}" />
+					<h:inputText id="capacCarga"
+						value="#{veiculoMB.veicAtual.capacidadeCarga}" />
 					<!-- sem nada -->
-					
+
 					<h:outputLabel value="Carroceria:" />
-					<h:inputText id="carroceria" value="#{veiculoMB.veicAtual.carroceria}" />
+					<h:inputText id="carroceria"
+						value="#{veiculoMB.veicAtual.carroceria}" />
 					<!-- sem nada -->
-					
+
 
 					<h:outputLabel value="Status:" />
 					<h:inputText value="#{veiculoMB.veicAtual.status}" disabled="true" />
 					<!-- sem nada -->
 
 					<h:outputLabel />
-					<h:panelGroup>						
-						<h:commandButton action="#{veiculoMB.adicionar}" value="Adicionar"  />
+					<h:panelGroup>
+						<h:commandButton action="#{veiculoMB.adicionar}" value="Adicionar" />
 						<h:commandButton action="#{veiculoMB.atualizar}" value="Atualizar" />
 					</h:panelGroup>
 

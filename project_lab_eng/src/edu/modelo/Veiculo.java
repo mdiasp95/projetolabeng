@@ -1,7 +1,5 @@
 package edu.modelo;
 
-import java.util.Date;
-
 public class Veiculo {
 	private String placa;
 	private String chassi;
