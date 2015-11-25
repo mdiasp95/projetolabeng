@@ -95,6 +95,39 @@ public class DaoRecebimento implements IDaoRecebimento {
 	 * lista.add(r); } con.close(); } catch (ClassNotFoundException |
 	 * SQLException e) { e.printStackTrace(); } return lista; }
 	 */
+	
+	public void atualizar (Recebimento r) {
+		
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			StringBuffer sb = new StringBuffer();
+			sb.append(
+					"Update tb_recebimento set dt_Entrada, tipoentrada, notafiscal, valornf, peso, volumes, status, cnpj_destinatario, cnpj_remetente ");
+			sb.append("WHERE notafiscal = ?");
+
+			PreparedStatement st = con.prepareStatement(sb.toString());
+			st.setInt(1, r.getNotaFiscal());
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				r = new Recebimento();
+				r.setDataEntrada(rs.getDate("dt_entrada"));
+				r.setTipoEntrada(rs.getString("tipoentrada"));
+				r.setNotaFiscal(rs.getInt("notafiscal"));
+				r.setValorNf(rs.getDouble("valornf"));
+				r.setPeso(rs.getDouble("peso"));
+				r.setVolumes(rs.getInt("volumes"));
+				r.setStatus(rs.getString("status"));
+				r.setDestinatario(new Destinatario(rs.getString("cnpj_destinatario")));
+				r.setRemetente(new Remetente(rs.getString("cnpj_remetente")));
+
+			}
+			con.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public Recebimento buscarRecebimento(int nota) {
 		Recebimento r = null;
 		try {

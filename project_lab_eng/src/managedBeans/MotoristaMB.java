@@ -52,6 +52,22 @@ public class MotoristaMB implements Serializable{
 		return "motorista";
 	}
 
+	public void buscarPorNome(){
+		String msg = "nenhum motorista encontrado";
+		if(daoUsuario.BuscarPorNome(motorista.getNome())!= null){
+			motorista = daoUsuario.BuscarPorNome(motorista.getNome());
+			msg = "";
+		}
+	FacesContext fc = FacesContext.getCurrentInstance();
+	fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
+	}
+	
+	public void atualizar(){
+		String msg = "Motorista atualizado com sucesso";
+		daoUsuario.alterar(motorista);
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
+	}
 	public Motorista getMotorista() {
 		return motorista;
 	}

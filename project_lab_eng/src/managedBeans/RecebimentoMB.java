@@ -2,6 +2,7 @@ package managedBeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -48,18 +49,30 @@ public class RecebimentoMB implements Serializable{
 		recebimento = new Recebimento();
 		daoRecebimento = new DaoRecebimento();
 	}
-		public String adicionar(){
+		public void adicionar(){
 			String msg = "Erro ao adicionar o recebimento no banco de dados";
+			recebimento.setDataEntrada(new Date());
 				daoRecebimento.adicionar( recebimento );
 				msg = "recebimento foi adicionado com sucesso no banco de dados";
 				recebimento = new Recebimento();
 				
 			FacesContext fc = FacesContext.getCurrentInstance();
 			fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
-			return "recebimento";
+		
 		}
 		
-		public String buscarPorNota(){
+		public void atualizar(){
+			
+			recebimento.setDataEntrada(new Date());
+				daoRecebimento.atualizar( recebimento );
+				recebimento = new Recebimento();
+				String msg = "atualizado com sucesso";
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
+		
+		}
+
+		public void buscarPorNota(){
 			String msg = "Nenhuma nota encontrada";
 			if(daoRecebimento.buscarRecebimento(recebimento.getNotaFiscal())!=null){
 				recebimento = daoRecebimento.buscarRecebimento(recebimento.getNotaFiscal());
@@ -67,7 +80,7 @@ public class RecebimentoMB implements Serializable{
 			}
 			FacesContext fc = FacesContext.getCurrentInstance();
 			fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
-			return "recebimento";
+			
 			
 		}
 		

@@ -57,7 +57,7 @@ public class VeiculoMB  implements Serializable{
 		 
 	}
 
-	public String adicionar() {
+	public void adicionar() {
 		String msg = "Erro ao adicionar o cliente no banco de dados";
 			daoVeiculo.adicionar( veicAtual );
 			msg = "Cliente foi adicionado com sucesso no banco de dados";
@@ -65,17 +65,26 @@ public class VeiculoMB  implements Serializable{
 			
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
-		return "veiculo";
 	}
 	
-	
-	public String pesquisar() {
-		String msg = "Erro ao pesquisar veiculls no banco de dados";
-		lista = daoVeiculo.listar();
-		msg = "Foram localizados " + lista.size() + " Clientes no banco de dados";		
+	public void atualizar(){
+		daoVeiculo.alterar(veicAtual);
+		String msg = "Veiculo atualizado com sucesso";
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
-		return "animais";
+
+	}
+	
+	public void buscarPorPlaca() {
+		String msg = "Nenhum veiculo encontrado";
+		lista = daoVeiculo.listarPorPlaca(veicAtual.getPlaca());
+		if(lista.size()==1){
+			msg = "";
+			veicAtual = lista.get(0);
+		}
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
+		
 	}
 	
 	

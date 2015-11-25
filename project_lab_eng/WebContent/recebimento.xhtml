@@ -38,10 +38,12 @@
 					<h:inputText id="notaFiscal" value="#{recebimentoMB.recebimento.notaFiscal}"/>
 					<h:commandButton name="buscar" value=">>"
 						action="#{recebimentoMB.buscarPorNota}" />
-
+					
+					
 					<h:outputLabel value="Data entrada :" />
-					<h:inputText id="dataEntrada" value="#{recebimentoMB.recebimento.dataEntrada}" />
+					<h:inputText id="dataEntrada" value="" />
 					<!-- sem nada -->
+					
 
 					<h:outputLabel value="Tipo entrada:" />
 					<h:inputText id="tipoEntrada" value="#{recebimentoMB.recebimento.tipoEntrada}" />

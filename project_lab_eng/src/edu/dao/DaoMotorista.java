@@ -158,6 +158,34 @@ public class DaoMotorista implements IDaoMotorista {
 		}
 	}
 
+	public Motorista BuscarPorNome(String nome) {
+		Motorista f = new Motorista();
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			String sql = "SELECT  * FROM tb_motorista WHERE nome = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, nome);
+			ResultSet rs = st.executeQuery();
+			if(rs.next()) {
+				
+				f.setCnh(rs.getString("cnh"));
+				f.setNome(rs.getString("nome"));
+				f.setCategoria(rs.getString("categoria"));
+				f.setVencimento(rs.getDate("vencimento"));
+				f.setMopp(rs.getBoolean("moop"));
+				f.setStatus(rs.getString("status"));
+				f.setDtCadastro(rs.getDate("dtcadastro"));
+
+			}
+			con.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+
 
 
 }
