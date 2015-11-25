@@ -95,7 +95,7 @@ public class DaoVeiculo implements IDaoVeiculo {
 			Connection con = DatabaseConnection.getConnection();
 			StringBuffer sb = new StringBuffer();
 			sb.append("SELECT * ");
-			sb.append("FROM veiculo WHERE placa like ?");
+			sb.append("FROM tb_veiculo WHERE placa like ?");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
 			st.setString(1, "%" + placa + "%");
@@ -107,9 +107,9 @@ public class DaoVeiculo implements IDaoVeiculo {
 				v.setMarca(rs.getString("marca"));
 				v.setModelo(rs.getString("modelo"));
 				v.setAnoFabricacao(rs.getInt("anofabricacao"));
-				v.setAnoModelo(rs.getInt("anomododelo"));
+				v.setAnoModelo(rs.getInt("anomodelo"));
 				v.setCarroceria(rs.getString("carroceria"));
-				v.setCapacidadeCarga(rs.getInt("cap_carga"));
+				v.setCapacidadeCarga(rs.getInt("capacidadecarga"));
 				v.setStatus(rs.getString("status"));
 				listaVeiculos.add(v);
 
@@ -157,7 +157,7 @@ public class DaoVeiculo implements IDaoVeiculo {
 			Connection con = DatabaseConnection.getConnection();
 			StringBuffer sb = new StringBuffer();
 			sb.append("SELECT * ");
-			sb.append("FROM veiculo");
+			sb.append("FROM tb_veiculo");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
 
@@ -171,7 +171,7 @@ public class DaoVeiculo implements IDaoVeiculo {
 				v.setAnoFabricacao(rs.getInt("anofabricacao"));
 				v.setAnoModelo(rs.getInt("anomodelo"));
 				v.setCarroceria(rs.getString("carroceria"));
-				v.setCapacidadeCarga(rs.getInt("cap_carga"));
+				v.setCapacidadeCarga(rs.getInt("capacidadecarga"));
 				v.setStatus(rs.getString("status"));
 				listaVeiculos.add(v);
 			}

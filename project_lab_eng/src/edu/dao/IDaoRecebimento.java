@@ -16,5 +16,5 @@ public interface IDaoRecebimento {
 	
 //	public List<Recebimento> listarPorStatus(String status);
 	
-	public Recebimento buscarRecebimento(int nota, String cnpj);
+	public Recebimento buscarRecebimento(int nota);
 }

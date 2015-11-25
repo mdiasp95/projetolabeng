@@ -71,6 +71,20 @@ public class Recebimento {
 		this.remetente = remetente;
 	}
 	
-
-	
-}
+	public String getCnpj(){
+		if(destinatario != null){
+			return destinatario.cnpj;
+		}
+		else if(remetente != null){
+			return remetente.cnpj;
+		}else{
+			return "";
+		}
+	}
+	public String getCnpjDestinatario(){
+		return destinatario.cnpj;
+			}
+	public String getCnpjRemetente(){
+			return remetente.cnpj;
+	}
+	}

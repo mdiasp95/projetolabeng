@@ -23,14 +23,17 @@ public class DaoViagem implements IDaoViagem {
 
 			StringBuffer sb = new StringBuffer();
 
-			sb.append("INSERT INTO tb_viagem (dt_saida, km_saida, placa, cnh_motorista) ");
-			sb.append("VALUES (?, ?, ?, ?)");
+			sb.append("INSERT INTO tb_viagem (dt_saida, dt_chegada, km_saida, km_chegada, placa, cnh_motorista, cidadedestino) ");
+			sb.append("VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
-			st.setDate(1, dataBanco(new Date()));
-			st.setInt(2, via.getKmSaida());
-			st.setString(3, via.getVeiculo().getPlaca());
-			st.setString(4, via.getMotorista().getCnh());
+			st.setDate(1, dataBanco(via.getDataSaida()));
+			st.setDate(2, dataBanco(via.getDataSaida()));
+			st.setInt(3, via.getKmSaida());
+			st.setInt(4, via.getKmChegada());
+			st.setString(5, via.getVeiculo().getPlaca());
+			st.setString(6, via.getMotorista().getCnh());
+			st.setString(7, via.getCidadeDestino());
 
 			st.executeUpdate();
 			con.close();

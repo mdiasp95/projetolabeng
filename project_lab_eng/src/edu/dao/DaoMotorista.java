@@ -20,8 +20,8 @@ public class DaoMotorista implements IDaoMotorista {
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("INSERT INTO tb_motorista(cnh, nome, categoria, vencimento, moop,");
-			sb.append("fone, status, dt_cadastro");
-			sb.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			sb.append("fone, status, dtcadastro) ");
+			sb.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
 			st.setString(1, f.getCnh());
@@ -31,7 +31,7 @@ public class DaoMotorista implements IDaoMotorista {
 			st.setBoolean(5, f.isMopp());
 			st.setString(6, f.getFone());
 			st.setString(7, f.getStatus());
-			st.setDate(8, dataBanco(new Date()));
+			st.setDate(8, dataBanco(f.getDtCadastro()));
 
 			st.executeUpdate();
 			con.close();
@@ -48,9 +48,9 @@ public class DaoMotorista implements IDaoMotorista {
 
 
 			StringBuffer sb = new StringBuffer();
-			sb.append("UPDATE tb_motorista SET cnh = ?, nome = ?, categoria = ?, vencimento = ? ");
-			sb.append("moop = ?, fone = ?, status = ?, dtCadastro = ? ");
-			sb.append("WHERE  cnh = ?");
+			sb.append("UPDATE tb_motorista SET nome = ?, categoria = ?, vencimento = ? ");
+			sb.append(",moop = ?, fone = ?, status = ?, dtCadastro = ? ");
+			sb.append("WHERE  cnh = ?; ");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
 			st.setString(1, f.getNome());
@@ -61,6 +61,7 @@ public class DaoMotorista implements IDaoMotorista {
 			st.setString(6, f.getStatus());
 			st.setDate(7, dataBanco(f.getDtCadastro()));
 			st.setString(8,f.getCnh());
+			System.out.println(st.toString());
 			st.executeUpdate();
 			con.close();
 		} catch (ClassNotFoundException e) {
@@ -94,11 +95,10 @@ public class DaoMotorista implements IDaoMotorista {
 			Connection con = DatabaseConnection.getConnection();
 
 			StringBuffer sb = new StringBuffer();
-			sb.append("SELECT cnh, nome, categoria ");
-			sb.append("vencimento, mopp, fone, status, dtCadastro ");
+			sb.append("SELECT cnh, nome, categoria, ");
+			sb.append("vencimento, moop, fone, status, dtCadastro ");
 			sb.append("FROM tb_motorista");
 			PreparedStatement st = con.prepareStatement(sb.toString());
-
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				Motorista f = new Motorista();
@@ -106,9 +106,9 @@ public class DaoMotorista implements IDaoMotorista {
 				f.setNome(rs.getString("nome"));
 				f.setCategoria(rs.getString("categoria"));
 				f.setVencimento(rs.getDate("vencimento"));
-				f.setMopp(rs.getBoolean("mopp"));
+				f.setMopp(rs.getBoolean("moop"));
 				f.setStatus(rs.getString("status"));
-				f.setDtCadastro(rs.getDate("dt_cadastro"));
+				f.setDtCadastro(rs.getDate("dtcadastro"));
 				lista.add(f);
 			}
 			con.close();
@@ -121,40 +121,25 @@ public class DaoMotorista implements IDaoMotorista {
 	}
 
 
-	/*
-	public List<Motorista> listarPorNome(String t) {
-		List<Motorista> lista = new ArrayList<Motorista>();
+	
+	public Motorista BuscarPorCNH(String t) {
+		Motorista f = new Motorista();
 		try {
 			Connection con = DatabaseConnection.getConnection();
-
-			StringBuffer sb = new StringBuffer();
-			sb.append("SELECT nome, cep, rua, numero, complemento, bairro, cidade, uf, ");
-			sb.append("fone1, fone2, status, dt_cadastro, rg, cpf_motorista, cnh_numero, cnh_categoria, cnh_vencimento, cnh_mopp ");
-			sb.append("FROM tb_motorista WHERE nome like ?");
-			PreparedStatement st = con.prepareStatement(sb.toString());
-			st.setString(1, "%" + t + "%");
+			String sql = "SELECT  * FROM tb_motorista WHERE cnh = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, t);
 			ResultSet rs = st.executeQuery();
-			while (rs.next()) {
-				Motorista f = new Motorista(rs.getInt("cpf_motorista"));
+			if(rs.next()) {
+				
+				f.setCnh(rs.getString("cnh"));
 				f.setNome(rs.getString("nome"));
-				f.setCep(rs.getString("cep"));
-				f.setRua(rs.getString("rua"));
-				f.setNum(rs.getString("numero"));
-				f.setCompl(rs.getString("complemento"));
-				f.setBairro(rs.getString("bairro"));
-				f.setCidade(rs.getString("cidade"));
-				f.setUf(rs.getString("uf"));
-				f.setFone1(rs.getString("fone1"));
-				f.setFone2(rs.getString("fone2"));
+				f.setCategoria(rs.getString("categoria"));
+				f.setVencimento(rs.getDate("vencimento"));
+				f.setMopp(rs.getBoolean("moop"));
 				f.setStatus(rs.getString("status"));
-				f.setDtCadastro(rs.getDate("dt_cadastro"));
-				f.setRg(rs.getString("rg"));
-				f.setCnh(rs.getString("cnh_numero"));
-				f.setCategoria(rs.getString("cnh_categoria"));
-				f.setVencimento(rs.getDate("cnh_vencimento"));
-				f.setMopp(rs.getBoolean("cnh_mopp"));
+				f.setDtCadastro(rs.getDate("dtcadastro"));
 
-				lista.add(f);
 			}
 			con.close();
 		} catch (ClassNotFoundException e) {
@@ -162,8 +147,8 @@ public class DaoMotorista implements IDaoMotorista {
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return lista;
-	}*/
+		return f;
+	}
 
 	private java.sql.Date dataBanco(Date data) {
 		try {

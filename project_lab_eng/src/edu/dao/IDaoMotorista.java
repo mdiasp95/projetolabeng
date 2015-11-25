@@ -18,4 +18,6 @@ public interface IDaoMotorista {
 //	public List<Motorista> listarPorNome(String t);
 
 	public List<Motorista> listar();
+	
+	public Motorista BuscarPorCNH(String t);
 }

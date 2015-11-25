@@ -7,6 +7,7 @@ public class Entrega {
 	Date dataRetorno;
 	String observacao;
 	Recebimento recebimento;
+	
 	public Date getDataSaida() {
 		return dataSaida;
 	}

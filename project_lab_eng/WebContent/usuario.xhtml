@@ -10,12 +10,12 @@
 </h:head>
 <h:body>
 		<div id="geral">
-			<div id="topo">
-				<div id="topo_imagem"></div>
-				<div id="topo_texto">
-					<h2>Sistema de Controle de Entregas</h2>
-				</div>
+		<div id="topo">
+			<div id="topo_imagem"></div>
+			<div id="topo_texto">
+				<h2>Sistema de Controle de Entregas</h2>
 			</div>
+		</div>
 
 		<div id="barraMenu">
 			<ul>			
@@ -27,24 +27,26 @@
 				<li><a href="veiculo.xhtml">Veículo</a></li>
 				<li><a href="usuario.xhtml">Usuário</a></li>
 			</ul>
-		</div>
-		
+		</div>		
 		<div id="conteudo">
+			<h3>Usuário</h3>
+			<h:messages />
+			<!-- ALTERACOES SOMENTE DAQUI ABAIXO -->
 			<h:form>
 				<h:panelGrid columns="2">
-					<h:outputLabel value="Usuário : "/>
-					<h:inputText value="#{UsuarioMB.usuario.userid}"/>
-			
-					<h:outputLabel value="Senha : "/>
-					<h:inputText value="#{UsuarioMB.usuario.senha}"/>
-			
-					<h:commandButton value="Login" action="#{UsuarioMB.login}"/>
+					<h:outputLabel value="Usuário atual:" />
+					<h:inputText id="userid" value="#{usuarioMB.usuario.userid}" />
+
+					<h:panelGroup>						
+						<h:commandButton action="#{usuarioMB.atualizar}" value="Atualizar" />
+					</h:panelGroup>
+
 				</h:panelGrid>
-	
 			</h:form>
+			<!-- ALTERACOES SOMENTE DAQUI ACIMA -->
+		</div>
+
 			<div style="clear: both"></div>
 			<div id="rodape">Trabalho de Laboratório de Engenharia de Software III</div>		
 		</div>
-	</div>
 </h:body>
-</html>

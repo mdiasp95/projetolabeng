@@ -20,7 +20,7 @@ public class DaoRecebimento implements IDaoRecebimento {
 			StringBuffer sb = new StringBuffer();
 
 			sb.append(
-					"INSERT INTO tb_recebimento(dataEntrada, tipoEntrada, notaFiscal, valorNF, peso, volumes, status, cnpj_destinatario, cnpj_remetente) ");
+					"INSERT INTO tb_recebimento(dt_Entrada, tipoEntrada, notaFiscal, valorNF, peso, volumes, status, cnpj_destinatario, cnpj_remetente) ");
 			sb.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
@@ -30,9 +30,9 @@ public class DaoRecebimento implements IDaoRecebimento {
 			st.setDouble(4, r.getValorNf());
 			st.setDouble(5, r.getPeso());
 			st.setInt(6, r.getVolumes());
-			st.setString(8, EnumStatusRecebimento.GALPÃO.toString());
-			st.setString(9, r.getDestinatario().getCnpj());
-			st.setString(10, r.getRemetente().getCnpj());
+			st.setString(7, EnumStatusRecebimento.GALPÃO.toString());
+			st.setString(8, r.getDestinatario().getCnpj());
+			st.setString(9, r.getRemetente().getCnpj());
 
 			st.executeUpdate();
 			con.close();
@@ -95,13 +95,13 @@ public class DaoRecebimento implements IDaoRecebimento {
 	 * lista.add(r); } con.close(); } catch (ClassNotFoundException |
 	 * SQLException e) { e.printStackTrace(); } return lista; }
 	 */
-	public Recebimento buscarRecebimento(int nota, String cnpj) {
+	public Recebimento buscarRecebimento(int nota) {
 		Recebimento r = null;
 		try {
 			Connection con = DatabaseConnection.getConnection();
 			StringBuffer sb = new StringBuffer();
 			sb.append(
-					"SELECT dataEntrada, tipoentrada, notafiscal, valornf, peso, volumes, status, cnpj_destinatario, cnpj_remetente ");
+					"SELECT dt_Entrada, tipoentrada, notafiscal, valornf, peso, volumes, status, cnpj_destinatario, cnpj_remetente ");
 			sb.append("FROM tb_recebimento WHERE notafiscal = ?");
 
 			PreparedStatement st = con.prepareStatement(sb.toString());
@@ -109,7 +109,7 @@ public class DaoRecebimento implements IDaoRecebimento {
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				r = new Recebimento();
-				r.setDataEntrada(rs.getDate("dataentrada"));
+				r.setDataEntrada(rs.getDate("dt_entrada"));
 				r.setTipoEntrada(rs.getString("tipoentrada"));
 				r.setNotaFiscal(rs.getInt("notafiscal"));
 				r.setValorNf(rs.getDouble("valornf"));
@@ -117,7 +117,7 @@ public class DaoRecebimento implements IDaoRecebimento {
 				r.setVolumes(rs.getInt("volumes"));
 				r.setStatus(rs.getString("status"));
 				r.setDestinatario(new Destinatario(rs.getString("cnpj_destinatario")));
-				r.setRemetente(new Remetente(rs.getString("cnpj_remtente")));
+				r.setRemetente(new Remetente(rs.getString("cnpj_remetente")));
 
 			}
 			con.close();

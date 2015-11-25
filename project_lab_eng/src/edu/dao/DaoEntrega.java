@@ -19,14 +19,16 @@ public class DaoEntrega implements IDaoEntrega{
 				Connection con = DatabaseConnection.getConnection();
 
 				StringBuffer sb = new StringBuffer();
-				sb.append("INSERT INTO tb_entrega(dataSaida, dataRetorno, observacao, nfrecebimento, cnpjreceb ");
-				sb.append("VALUES (?, ?, ?, ?, ?)");
+				sb.append("INSERT INTO tb_entrega(dataSaida, dataRetorno, observacao, nfrecebimento, cnpj_receb )");
+				sb.append("VALUES (?, ?, ?, ?, ? )");
 
 				PreparedStatement st = con.prepareStatement(sb.toString());
 				st.setDate(1, dataBanco(f.getDataSaida()));
 				st.setDate(2, dataBanco(f.getDataRetorno()));
 				st.setString(3, f.getObservacao());
 				st.setInt(4, f.getRecebimento().getNotaFiscal());
+				st.setString(5,f.getRecebimento().getCnpj() );
+				System.out.println(st.toString());
 				st.executeUpdate();
 				con.close();
 			} catch (ClassNotFoundException e) {
@@ -41,15 +43,16 @@ public class DaoEntrega implements IDaoEntrega{
 				Connection con = DatabaseConnection.getConnection();
 
 				StringBuffer sb = new StringBuffer();
-				sb.append("UPDATE tb_entrega SET datasaida = ?, dataretorno = ?, obeservacao = ?");
-				sb.append("WHERE  nfrecebimento = ? and cnpjreceb = ?");
+				sb.append("UPDATE tb_entrega SET datasaida = ?, dataretorno = ?, observacao = ?");
+				sb.append("WHERE  nfrecebimento = ? and cnpj_receb = ?");
 
 				PreparedStatement st = con.prepareStatement(sb.toString());
 				st.setDate(1, dataBanco(f.getDataSaida()));
 				st.setDate(2, dataBanco(f.getDataRetorno()));
 				st.setString(3, f.getObservacao());
 				st.setInt(4, f.getRecebimento().getNotaFiscal());
-							st.executeUpdate();
+				st.setString(5,f.getRecebimento().getCnpj() );
+				st.executeUpdate();
 				con.close();
 			} catch (ClassNotFoundException e){
 				e.printStackTrace();
@@ -62,9 +65,10 @@ public class DaoEntrega implements IDaoEntrega{
 		public void remover(Entrega f) {
 			try {
 				Connection con = DatabaseConnection.getConnection();
-				String sql = "DELETE FROM tb_cliente WHERE nfrecebimento = ? and cnpjreceb = ?";
+				String sql = "DELETE FROM tb_entrega WHERE nfrecebimento = ? and cnpj_receb = ? ;";
 				PreparedStatement st = con.prepareStatement(sql);
 				st.setInt(1, f.getRecebimento().getNotaFiscal());
+				st.setString(2, f.getRecebimento().getCnpj());
 				st.executeUpdate();
 				con.close();
 			} catch (SQLException e) {
@@ -82,7 +86,7 @@ public class DaoEntrega implements IDaoEntrega{
 				Connection con = DatabaseConnection.getConnection();
 
 				StringBuffer sb = new StringBuffer();
-				sb.append("SELECT dataSaida, dataRetorno, observacao, nfrecebimento, cnpjrecebimento");
+				sb.append("SELECT dataSaida, dataRetorno, observacao, nfrecebimento, cnpj_receb");
 				sb.append("FROM tb_entrega");
 				PreparedStatement st = con.prepareStatement(sb.toString());
 
@@ -92,7 +96,7 @@ public class DaoEntrega implements IDaoEntrega{
 					f.setDataRetorno((rs.getDate("datasaida")));
 					f.setDataSaida(rs.getDate("staretorno"));
 					f.setObservacao(rs.getString("observacao"));
-					f.setRecebimento(new DaoRecebimento().buscarRecebimento(rs.getInt("nfrecebimento"), rs.getString("nfcnpj")));
+					f.setRecebimento(new DaoRecebimento().buscarRecebimento(rs.getInt("nfrecebimento")));
 					
 					lista.add(f);
 				}
