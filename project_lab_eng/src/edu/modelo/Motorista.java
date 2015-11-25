@@ -12,6 +12,11 @@ public class Motorista {
 	private String fone;
 	private String status;
 	private Date dtCadastro;
+	
+	public Motorista(){
+		vencimento = new Date();
+	}
+	
 	public String getCnh() {
 		return cnh;
 	}

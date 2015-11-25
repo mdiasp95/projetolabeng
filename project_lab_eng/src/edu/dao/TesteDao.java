@@ -43,6 +43,7 @@ public class TesteDao {
 //		teste.testeremoverVeiculo();
 //		teste.testeBuscarVeiculoPorPlaca();
 //		teste.testeAdicionarViagem();
+		System.out.println(new Date());
 	 }
 	
 	//OK

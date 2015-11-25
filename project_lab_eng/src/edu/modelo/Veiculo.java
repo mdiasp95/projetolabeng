@@ -11,6 +11,7 @@ public class Veiculo {
 	private int capacidadeCarga;
 	private String status;
 	
+	
 	public String getPlaca() {
 		return placa;
 	}
