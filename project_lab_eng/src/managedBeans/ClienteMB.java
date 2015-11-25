@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import edu.dao.DAOException;
 import edu.dao.DaoCliente;
 import edu.modelo.Cliente;
 
@@ -17,9 +16,13 @@ import edu.modelo.Cliente;
 @SessionScoped
 public class ClienteMB implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Cliente cliente;
 	private DaoCliente daoUsuario;
-	private List<Cliente> lista = new ArrayList();
+	private List<Cliente> lista = new ArrayList<Cliente>();
 	
 	public ClienteMB() { 
 		cliente = new Cliente();
@@ -42,7 +45,18 @@ public class ClienteMB implements Serializable{
 			
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
-		return "animais";
+		return "cliente";
+	}
+	
+	public String atualizar(){
+		String msg = "Erro ao atualizar o cliente no banco de dados";
+			daoUsuario.alterar(cliente);
+			msg = "cliente foi alterado com sucesso no banco de dados";
+			cliente = new Cliente();
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
+			return "cliente";
+			
 	}
 	
 	public String pesquisar() {
@@ -51,9 +65,21 @@ public class ClienteMB implements Serializable{
 		msg = "Foram localizados " + lista.size() + " Clientes no banco de dados";		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
-		return "";
+		return "cliente";
 	}
 	
+	public String buscarPorCnpj(){
+		String msg = "Nenhum CNPJ encontrado";
+		lista = daoUsuario.listarPorCnpj(cliente.getCnpj());
+		if(lista.size()>0){
+			cliente = lista.get(0);
+			msg = "";
+		}
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO,  msg, ""));
+		return "cliente";
+		
+	}
 	public Cliente getCliente() {
 		return cliente;
 	}

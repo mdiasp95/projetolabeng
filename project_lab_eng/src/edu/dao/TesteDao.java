@@ -70,7 +70,7 @@ public class TesteDao {
 		Cliente c = new Cliente();
 		IDaoCliente id = new DaoCliente();
 		c.setCnpj("12345");
-		c.setNome("Novo Teste");
+		c.setNome("N4353535");
 		id.alterar(c);
 	}
 	public void testeDeletarCliente(){
